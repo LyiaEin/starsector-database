@@ -1,0 +1,24 @@
+GET http://localhost:8081/sd/getall
+
+###
+POST http://localhost:8081/sd/getavg
+Content-Type: application/json
+
+{
+  "tonnage": 3
+}
+
+###
+POST http://localhost:8081/sd/searchM
+Content-Type: application/json
+
+{
+    "data": "w",
+    "like": true
+}
+
+###
+POST http://localhost:18981/sd/getdsp
+Content-Type: application/json
+
+wolf

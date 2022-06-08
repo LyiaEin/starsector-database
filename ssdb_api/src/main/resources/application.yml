@@ -1,0 +1,11 @@
+#JavaSE3
+#create at 2021/12/27 22:54 星期一
+#by Alyian
+
+Spring:
+  profiles:
+    active: dev
+
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher

@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ool.blog_api.ssdb.Mapper.ShipDataMapper">
+
+    <select id="getalldata" resultType="com.ool.blog_api.ssdb.DTO.ShipDataDTO">
+        select recid,
+               sd.name,
+               sd.id,
+               designation,
+               tonnage,
+               tech_manufacturer,
+               system_id,
+               ss.name as system_name,
+               fleet_pts,
+               hitpoints,
+               armor_rating,
+               max_flux,
+               max_flux,
+               flux_dissipation,
+               ordnance_points,
+               fighter_bays,
+               max_speed,
+               acceleration,
+               deceleration,
+               max_turn_rate,
+               turn_acceleration,
+               mass,
+               shield_type,
+               defense_id,
+               shield_arc,
+               shield_upkeep,
+               shield_efficiency,
+               phase_cost,
+               phase_upkeep,
+               min_crew,
+               max_crew,
+               cargo,
+               fuel,
+               fuel_ly,
+               range_p,
+               max_burn,
+               base_value,
+               cr_p_day,
+               CR_to_deploy,
+               peak_CR_sec,
+               CR_loss_sec,
+               supplies_rec,
+               supplies_mo,
+               c_s,
+               c_f,
+               f_s,
+               f_f,
+               crew_s,
+               crew_f,
+               hints,
+               sd.tags,
+               rarity,
+               breakProb,
+               travel_drive,
+               minPieces,
+               maxPieces,
+               travel_drive,
+               number
+        from ship_data_vanilla as sd
+                 left join ship_systems_vanilla as ss on sd.system_id = ss.id
+        where tonnage > 1
+        order by recid
+    </select>
+
+    <select id="getavg" resultType="com.ool.blog_api.ssdb.Entity.ShipData">
+        select avg(fleet_pts)         as fleet_pts,
+               avg(hitpoints)         as hitpoints,
+               avg(armor_rating)      as armor_rating,
+               avg(max_flux)          as max_flux,
+               avg(max_flux)          as max_flux,
+               avg(flux_dissipation)  as flux_dissipation,
+               avg(ordnance_points)   as ordnance_points,
+               avg(fighter_bays)      as fighter_bays,
+               avg(max_speed)         as max_speed,
+               avg(acceleration)      as acceleration,
+               avg(deceleration)      as deceleration,
+               avg(max_turn_rate)     as max_turn_rate,
+               avg(turn_acceleration) as turn_acceleration,
+               avg(mass)              as mass,
+               avg(shield_arc)        as shield_arc,
+               avg(shield_upkeep)     as shield_upkeep,
+               avg(shield_efficiency) as shield_efficiency,
+               avg(phase_cost)        as phase_cost,
+               avg(phase_upkeep)      as phase_upkeep,
+               avg(min_crew)          as min_crew,
+               avg(max_crew)          as max_crew,
+               avg(cargo)             as cargo,
+               avg(fuel)              as fuel,
+               avg(fuel_ly)           as fuel_ly,
+               avg(range_p)           as range_p,
+               avg(max_burn)          as max_burn,
+               avg(base_value)        as base_value,
+               avg(cr_p_day)          as cr_p_day,
+               avg(peak_CR_sec)       as peak_CR_sec,
+               avg(CR_loss_sec)       as CR_loss_sec,
+               avg(supplies_rec)      as supplies_rec,
+               avg(supplies_mo)       as supplies_mo,
+               avg(c_s)               as c_s,
+               avg(c_f)               as c_f,
+               avg(f_s)               as f_s,
+               avg(f_f)               as f_f,
+               avg(crew_s)            as crew_s,
+               avg(crew_f)            as crew_f,
+               avg(rarity)            as rarity,
+               avg(breakProb)         as breakProb,
+               avg(minPieces)         as minPieces,
+               avg(maxPieces)         as maxPieces
+        from (select *
+              from ship_data_vanilla as sd
+              where sd.tonnage &gt;= floor(#{tonnage})
+                and sd.tonnage &lt; floor(#{tonnage} + 1)) as fsd;
+    </select>
+
+       <select id="getbiwpn" resultType="com.ool.blog_api.ssdb.DTO.WpnDTO">
+              select name,id from weapon_data_vanilla where id = #{id}
+       </select>
+
+</mapper>
